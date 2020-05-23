@@ -1,27 +1,24 @@
 package stuff.kafka
 
-class BuildEvent {
+class DurationEvent {
     String buildUrl
     String key
     String jobName
     int buildNum
-    String state
     Date started
     Date finished
     long elapsedMillis
-    Date lastUpdate
 
     @Override
     String toString() {
-        return "BuildEvent{" +
+        return "DurationEvent{" +
                 "buildUrl='" + buildUrl + '\'' +
                 ", key='" + key + '\'' +
                 ", jobName='" + jobName + '\'' +
                 ", buildNum=" + buildNum +
-                ", state='" + state + '\'' +
                 ", started=" + started +
                 ", finished=" + finished +
-                ", lastUpdate=" + lastUpdate +
+                ", elapsedMillis=" + elapsedMillis +
                 '}';
     }
 }

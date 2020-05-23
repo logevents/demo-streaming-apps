@@ -74,7 +74,7 @@ class BuildTf extends StreamsRunner {
                             existingBuild.finished = existingBuild.lastUpdate
                         }
 
-                        existingBuild.key
+                        existingBuild.key = existingBuild.key?: newBuild.key
 
                         existingBuild
                 }, Materialized.with(Serdes.String(), KafkaConsts.createJsonSerde(BuildEvent)))

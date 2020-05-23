@@ -4,6 +4,8 @@ class SimpleApp {
     static void main(String[] args) {
         if (args[0] == 'buildTf') {
             BuildTf.create(args.drop(1))
+        } else if (args[0] == 'durationTf') {
+            DurationTf.create(args.drop(1))
         } else {
             println 'hi there, sleeping for 10min'
             sleep(600000)

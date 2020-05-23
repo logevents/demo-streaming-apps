@@ -10,13 +10,14 @@ class LogEvent {
     int fileOffset
     long kafkaOffset
     String message
+    String type
+    String subType
 
     @JsonProperty("@timestamp")
     Date timestamp
 
-
     @Override
-    public String toString() {
+    String toString() {
         return "LogEvent{" +
                 "master='" + master + '\'' +
                 ", buildUrl='" + buildUrl + '\'' +
@@ -25,7 +26,9 @@ class LogEvent {
                 ", fileOffset=" + fileOffset +
                 ", kafkaOffset=" + kafkaOffset +
                 ", message='" + message + '\'' +
+                ", type='" + type + '\'' +
+                ", subType='" + subType + '\'' +
                 ", timestamp=" + timestamp +
-                '}';
+                '}'
     }
 }

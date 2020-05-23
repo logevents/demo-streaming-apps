@@ -1,6 +1,6 @@
 package stuff.kafka
 
-import com.fasterxml.jackson.databind.ObjectMapper
+
 import org.apache.kafka.common.serialization.Serdes
 import org.apache.kafka.streams.StreamsBuilder
 import org.apache.kafka.streams.kstream.Consumed
@@ -82,6 +82,31 @@ class KafkaSpike extends Specification {
 
         then:
         sleep(1000)
+    }
+
+    def 'send durations'() {
+        def random = Random.newInstance()
+
+        when:
+        def client = new ProducerClient<>('kafka-0.kafka:9092',
+                'filebeattest1', KafkaConsts.JSON_SE)
+        client.init()
+
+        def begin = Instant.now()
+
+        1.times {
+            client.send('filebeat-2', null,
+                    DummyEvents.createLog("${begin}-$it", it, Instant.now(), random.nextInt(400000) + 1000, 'hi there'))
+            sleep(random.nextInt(40) + 10)
+            client.send('filebeat-2', null,
+                    DummyEvents.createStart("${begin}-$it", it, Instant.now(), random.nextInt(400000) + 1000))
+            sleep(random.nextInt(400) + 50)
+            client.send('filebeat-2', null,
+                    DummyEvents.createEnd("${begin}-$it", it, Instant.now(), random.nextInt(400000) + 1000))
+        }
+
+        then:
+        true
     }
 
     def 'push real jenkins log'() {
@@ -197,6 +222,14 @@ class KafkaSpike extends Specification {
 
         then:
         sleep(600000)
+    }
+
+    def 'duration tf cli'() {
+        when:
+        SimpleApp.main('durationTf', 'kafka-0.kafka:9092', 'duration-agg-test', 'latest', 'logevent-1', 'duration-2')
+
+        then:
+        sleep(6000000)
     }
 
     def 'poll something'() {
