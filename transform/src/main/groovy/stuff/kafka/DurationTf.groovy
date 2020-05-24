@@ -37,6 +37,7 @@ class DurationTf extends StreamsRunner {
                 duration.jobName = log.jobName
                 duration.buildNum = log.buildNum
                 duration.key = log.buildUrl + '/' + log.message
+                duration.name = log.message
                 if (log.subType == 'start') {
                     duration.started = log.timestamp
                 } else {
@@ -51,6 +52,9 @@ class DurationTf extends StreamsRunner {
                 existingDuration.buildUrl = newDuration.buildUrl ?: existingDuration.buildUrl
                 existingDuration.jobName = newDuration.jobName ?: existingDuration.jobName
                 existingDuration.buildNum = newDuration.buildNum ?: existingDuration.buildNum
+
+                existingDuration.name = newDuration.name?: existingDuration.name
+
                 if (newDuration.started) {
                     existingDuration.started = newDuration.started
                 }

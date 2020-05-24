@@ -5,6 +5,7 @@ class DurationEvent {
     String key
     String jobName
     int buildNum
+    String name
     Date started
     Date finished
     long elapsedMillis
@@ -16,6 +17,7 @@ class DurationEvent {
                 ", key='" + key + '\'' +
                 ", jobName='" + jobName + '\'' +
                 ", buildNum=" + buildNum +
+                ", name='" + name + '\'' +
                 ", started=" + started +
                 ", finished=" + finished +
                 ", elapsedMillis=" + elapsedMillis +
